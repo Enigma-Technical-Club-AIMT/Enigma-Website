@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -11,17 +12,40 @@ export function Contact() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    setTimeout(() => setSubmitted(false), 5000)
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'default_service',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'default_template',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'default_public_key'
+      )
+      setSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch (err) {
+      console.error('Failed to send email:', err)
+      setError('Failed to send message. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -122,6 +146,11 @@ export function Contact() {
                   </p>
                 </div>
               )}
+              {error && (
+                <div className="mb-6 p-4 rounded-lg bg-destructive/20 border border-destructive text-destructive animate-fade-in-up">
+                  <p className="font-semibold">{error}</p>
+                </div>
+              )}
 
               <div className="space-y-6">
                 <div>
@@ -202,10 +231,20 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 px-6 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-primary/50"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-6 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-primary/50 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Send Message
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  {isSubmitting ? (
+                    <>
+                      Sending...
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
