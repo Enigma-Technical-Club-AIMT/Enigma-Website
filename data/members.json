@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Yogesh Prajapati",
+    "role": "Club Lead",
+    "specialty": "AI & Machine Learning",
+    "branch": "Computer Science",
+    "image": "/yogu.jpeg",
+    "social": { "github": "#", "linkedin": "#", "email": "#" }
+  },
+  {
+    "id": 2,
+    "name": "Vishal kumar",
+    "role": "Club Lead",
+    "specialty": "Web Development",
+    "branch": "Information Technology",
+    "image": "/vishal1.jpeg",
+    "social": {
+      "github": "https://github.com/Vishal202-rgb",
+      "linkedin": "https://www.linkedin.com/in/vishal202-rgb/",
+      "email": "vishal.devx.tech@gmail.com"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Sparsh Mishra",
+    "role": "Club Lead",
+    "specialty": "Cloud Infrastructure",
+    "branch": "Computer Science",
+    "image": "/sparsh.jpeg",
+    "social": {
+      "github": "https://github.com/SparshM8",
+      "linkedin": "https://www.linkedin.com/in/sparshm8/",
+      "email": "callmesamay8@gmail.com"
+    }
+  }
+]

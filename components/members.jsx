@@ -5,39 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Github, Linkedin, Mail, X } from 'lucide-react'
 import { MembersSectionSkeleton } from '@/components/skeletons'
-
-const membersList = [
-  {
-    id: 1,
-    name: 'Yogesh Prajapati',
-    role: 'Club Lead',
-    specialty: 'AI & Machine Learning',
-    branch: 'Computer Science',
-    image:
-      '/yogu.jpeg',
-    social: { github: '#', linkedin: '#', email: '#' },
-  },
-  {
-    id: 2,
-    name: 'Vishal kumar',
-    role: 'Club Lead',
-    specialty: 'Web Development',
-    branch: 'Information Technology',
-    image:
-      '/vishal1.jpeg',
-    social: { github: 'https://github.com/Vishal202-rgb', linkedin: 'https://www.linkedin.com/in/vishal202-rgb/', email: 'vishal.devx.tech@gmail.com' },
-  },
-  {
-    id: 3,
-    name: 'Sparsh Mishra',
-    role: 'Club Lead',
-    specialty: 'Cloud Infrastructure',
-    branch: 'Computer Science',
-    image:
-      '/sparsh.jpeg',
-    social: { github: 'https://github.com/SparshM8', linkedin: 'https://www.linkedin.com/in/sparshm8/', email: 'callmesamay8@gmail.com' },
-  },
-]
+import { getMembers } from '@/app/actions/admin'
 
 function MemberDetailModal({ member, isOpen, onClose }) {
   if (!isOpen || !member) return null
@@ -49,83 +17,80 @@ function MemberDetailModal({ member, isOpen, onClose }) {
           <div className="flex items-center gap-4">
             <Image
               src="/enigma.jpg"
-              alt="Enigma Logo"
+              alt="Enigma Technical Club Logo"
               width={40}
               height={40}
-              className="rounded-lg"
+              className="rounded-lg object-contain"
             />
-            <h2 className="text-2xl font-bold text-foreground">
-              Member Profile
-            </h2>
+            <div>
+              <h3 className="text-xl font-bold text-foreground">Member Spotlight</h3>
+              <p className="text-xs text-muted-foreground">Enigma Technical Club</p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-border/30 rounded-lg transition-colors"
+            className="p-1 rounded-lg border border-border hover:bg-secondary hover:text-secondary-foreground transition-colors"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-
-        <div className="p-8">
-          <div className="relative aspect-square w-full rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-primary/20 to-secondary/20">
-            <Image
-              src={member.image || '/placeholder.svg'}
-              alt={member.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-4xl font-bold text-foreground mb-2">
-                {member.name}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 bg-primary/10 text-primary rounded-full font-semibold">
-                  {member.branch}
-                </span>
-                <span className="px-4 py-2 bg-secondary/10 text-secondary rounded-full font-semibold">
-                  {member.role}
-                </span>
+        <div className="p-6 md:p-8 space-y-6">
+          <div className="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+            <div className="relative w-40 h-40 aspect-square rounded-2xl overflow-hidden border border-border/50 bg-muted">
+              <Image
+                src={member.image || '/placeholder.svg'}
+                alt={member.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1 space-y-4">
+              <div>
+                <h4 className="text-3xl font-extrabold text-foreground">{member.name}</h4>
+                <p className="text-primary font-bold text-lg">{member.role}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 text-sm bg-card/50 p-4 rounded-xl border border-border/30">
+                <div>
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">Specialty</p>
+                  <p className="font-semibold text-foreground mt-0.5">{member.specialty}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">Branch</p>
+                  <p className="font-semibold text-foreground mt-0.5">{member.branch}</p>
+                </div>
+              </div>
+              <div className="flex justify-center md:justify-start gap-4">
+                {member.social?.github && member.social.github !== '#' && (
+                  <a
+                    href={member.social.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                )}
+                {member.social?.linkedin && member.social.linkedin !== '#' && (
+                  <a
+                    href={member.social.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg border border-border/50 text-muted-foreground hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                )}
+                {member.social?.email && member.social.email !== '#' && (
+                  <a
+                    href={`mailto:${member.social.email}`}
+                    className="p-2 rounded-lg border border-border/50 text-muted-foreground hover:text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10 transition-all"
+                  >
+                    <Mail className="w-5 h-5" />
+                  </a>
+                )}
               </div>
             </div>
-
-            <div className="bg-border/20 rounded-lg p-4">
-              <p className="text-muted-foreground">
-                <span className="font-semibold text-foreground">
-                  Specialty:
-                </span>{' '}
-                {member.specialty}
-              </p>
-            </div>
-
-            {member.social && (
-              <div className="flex gap-3 pt-4">
-                <a
-                  href={member.social.github}
-                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground transition-colors"
-                  aria-label="GitHub"
-                >
-                  <Github className="w-6 h-6" />
-                </a>
-                <a
-                  href={member.social.linkedin}
-                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-secondary/10 hover:bg-secondary text-secondary hover:text-secondary-foreground transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-6 h-6" />
-                </a>
-                <a
-                  href={member.social.email}
-                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground transition-colors"
-                  aria-label="Email"
-                >
-                  <Mail className="w-6 h-6" />
-                </a>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -136,12 +101,14 @@ function MemberDetailModal({ member, isOpen, onClose }) {
 export function Members() {
   const [hoveredId, setHoveredId] = useState(null)
   const [selectedMember, setSelectedMember] = useState(null)
+  const [membersList, setMembersList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate a brief loading state to show skeleton before hydration
-    const timer = setTimeout(() => setIsLoading(false), 600)
-    return () => clearTimeout(timer)
+    getMembers().then((data) => {
+      setMembersList(data)
+      setIsLoading(false)
+    })
   }, [])
 
   if (isLoading) return <MembersSectionSkeleton />

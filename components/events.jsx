@@ -5,80 +5,7 @@ import { Calendar, MapPin, Users, ArrowRight, Search, SlidersHorizontal, ArrowUp
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { EventsSectionSkeleton } from '@/components/skeletons'
 
-const events = [
-  {
-    id: 1,
-    title: 'AI & Machine Learning Workshop',
-    date: 'March 15, 2026',
-    time: '2:00 PM - 5:00 PM',
-    location: 'Tech Lab, AIMT',
-    attendees: 45,
-    description:
-      'Deep dive into machine learning concepts, neural networks, and practical implementations using TensorFlow.',
-    tags: ['AI', 'ML', 'Workshop'],
-    formlink: 'https://forms.gle/U8icoTvH381og5ss5',
-  },
-  {
-    id: 2,
-    title: 'Annual Hackathon 2026',
-    date: 'April 5-7, 2026',
-    time: 'Full Weekend Event',
-    location: 'Main Campus, AIMT',
-    attendees: 200,
-    description:
-      '24-hour hackathon where teams compete to build innovative solutions. Prizes, mentorship, and networking.',
-    tags: ['Hackathon', 'Competition', 'Innovation'],
-    formlink: 'https://forms.gle/sF8XZiEsxSXFctGNA',
-  },
-  {
-    id: 3,
-    title: 'Web Development Bootcamp',
-    date: 'March 22, 2026',
-    time: '3:00 PM - 6:00 PM',
-    location: 'Computer Lab 2, AIMT',
-    attendees: 60,
-    description:
-      'Master modern web development with React, Node.js, and cloud deployment. Perfect for beginners and intermediates.',
-    tags: ['Web Dev', 'React', 'Bootcamp'],
-    formlink: 'https://forms.gle/xKRDibhRTZWUxyH89',
-  },
-  {
-    id: 4,
-    title: 'Cloud Architecture Masterclass',
-    date: 'April 12, 2026',
-    time: '1:00 PM - 4:00 PM',
-    location: 'Tech Lab, AIMT',
-    attendees: 50,
-    description:
-      'Learn cloud architecture best practices with AWS, Azure, and GCP. Industry experts will share real-world insights.',
-    tags: ['Cloud', 'Architecture', 'Masterclass'],
-    formlink: 'https://forms.gle/FXLmeoLhtjrvyxGD8',
-  },
-  {
-    id: 5,
-    title: 'Cybersecurity Awareness Session',
-    date: 'March 29, 2026',
-    time: '2:30 PM - 4:00 PM',
-    location: 'Auditorium, AIMT',
-    attendees: 150,
-    description:
-      'Essential cybersecurity practices and how to protect your digital presence. Interactive Q&A with security experts.',
-    tags: ['Security', 'Awareness', 'Seminar'],
-    formlink: 'https://forms.gle/c3HzcWsVSC4zsJ3f6',
-  },
-  {
-    id: 6,
-    title: 'Startup Networking Night',
-    date: 'May 3, 2026',
-    time: '6:00 PM - 8:00 PM',
-    location: 'Club Lounge, AIMT',
-    attendees: 100,
-    description:
-      'Connect with entrepreneurs, investors, and startup founders. Perfect for aspiring tech entrepreneurs.',
-    tags: ['Startup', 'Networking', 'Event'],
-    formlink: 'https://forms.gle/GhJ4qJUJQAsrcz8W9',
-  },
-]
+import { getEvents } from '@/app/actions/admin'
 
 // Map date ranges (e.g. "April 5-7, 2026") into a parsed Date object
 function parseEventDate(dateString) {
@@ -88,6 +15,7 @@ function parseEventDate(dateString) {
 
 export function Events() {
   const [isLoading, setIsLoading] = useState(true)
+  const [eventsList, setEventsList] = useState([])
   const [activeCategory, setActiveCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState('soonest') // soonest, latest
@@ -95,13 +23,15 @@ export function Events() {
   const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 700)
-    return () => clearTimeout(timer)
+    getEvents().then((data) => {
+      setEventsList(data)
+      setIsLoading(false)
+    })
   }, [])
 
   // Filter and sort events
   const filteredEvents = useMemo(() => {
-    return events
+    return eventsList
       .filter((event) => {
         // Category matching
         if (activeCategory !== 'All') {
