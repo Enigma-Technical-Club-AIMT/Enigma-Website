@@ -58,12 +58,7 @@ export function Navbar() {
             >
               About
             </Link>
-            <Link
-              href="#members"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors"
-            >
-              Members
-            </Link>
+
             <Link
               href="#events"
               className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors"
@@ -78,6 +73,12 @@ export function Navbar() {
                 <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute left-0 mt-0 w-48 bg-card border border-border/50 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                <Link
+                  href="/#members"
+                  className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                >
+                  Current Team
+                </Link>
                 <Link
                   href="/alumni"
                   className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors"
@@ -130,12 +131,7 @@ export function Navbar() {
               >
                 About
               </Link>
-              <Link
-                href="#members"
-                className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
-              >
-                Members
-              </Link>
+
               <Link
                 href="#events"
                 className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
@@ -147,7 +143,7 @@ export function Navbar() {
               <button
                 onClick={() =>
                   setOpenDropdown(
-                    openDropdown === 'resources' ? null : 'resources'
+                    openDropdown === 'members' ? null : 'members'
                   )
                 }
                 className="w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors flex items-center justify-between"
@@ -155,12 +151,18 @@ export function Navbar() {
                 <span>Members</span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${
-                    openDropdown === 'resources' ? 'rotate-180' : ''
+                    openDropdown === 'members' ? 'rotate-180' : ''
                   }`}
                 />
               </button>
-              {openDropdown === 'resources' && (
+              {openDropdown === 'members' && (
                 <div className="pl-4 space-y-1">
+                  <Link
+                    href="/#members"
+                    className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                  >
+                    Current Team
+                  </Link>
                   <Link
                     href="/alumni"
                     className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors"

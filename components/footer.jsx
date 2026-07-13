@@ -136,18 +136,6 @@ export function Footer() {
             {'\u00A9'} {currentYear} Enigma Tech Club. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Terms of Service
-            </Link>
           </div>
           <p className="text-muted-foreground text-sm">
             Made with love at AIMT

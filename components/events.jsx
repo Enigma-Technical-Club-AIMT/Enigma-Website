@@ -185,10 +185,10 @@ export function Events() {
             mentored by industry experts, and build connections with tech
             enthusiasts across the region.
           </p>
-          <button className="inline-flex items-center px-8 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors hover:shadow-lg hover:shadow-primary/50">
+          <a href="#contact" className="inline-flex items-center px-8 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors hover:shadow-lg hover:shadow-primary/50">
             Learn More
             <ArrowRight className="ml-2 w-5 h-5" />
-          </button>
+          </a>
         </div>
       </div>
     </section>
