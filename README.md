@@ -1,56 +1,73 @@
-🚀 Enigma Website
+# 🚀 Enigma Website
 
-A modern full‑stack website built for Ambalika Institute's Enigma Platform to manage information, showcase projects, and provide an interactive contact system.
+A modern full-stack website built for Ambalika Institute's Enigma Platform to manage information, showcase projects, and provide an interactive contact system.
 
-📌 Project Overview
+## 📌 Project Overview
 
 The Enigma Website is a responsive and modern web application designed to:
+1. Showcase Enigma club activities
+2. Provide project information
+3. Allow users to contact the team
+4. Deliver a smooth UI with animations
+5. Deploy seamlessly on Vercel
 
-1.Showcase Enigma club activities
+*Note: This project also helped improve backend development skills after completing the frontend for a road-safety bridge project.*
 
-2.Provide project information
+## 🛠️ Tech Stack
 
-3.Allow users to contact the team
+### Frontend
+- **React.js**
+- **Next.js**
+- **Tailwind CSS**
+- **Shadcn UI Components**
+- **Framer Motion Animations**
 
-4.Deliver smooth UI with animations
+### Backend / Services
+- **EmailJS** (Contact Form Email Delivery)
+- **MongoDB Atlas** (Optional – message storage)
+- **JWT Authentication** (if admin panel enabled)
 
-5.Deploy seamlessly on Vercel
+### Deployment
+- **Vercel Hosting**
+- **GitHub Version Control**
 
-6.This project also helped me improve my backend development skills after completing frontend for my road‑safety bridge project.
+## ✨ Features
 
-🛠️ Tech Stack:
-   **Frontend**
+- ✔ Responsive Modern UI
+- ✔ Smooth Animations
+- ✔ Contact Form (Emails received at enigma@ambalika.co.in)
+- ✔ Fast Deployment on Vercel
+- ✔ Secure Environment Variables
+- ✔ Easy to Customize Sections
+- ✔ Mobile Friendly Design
 
-1..React.js
+## 🚀 Getting Started
 
-2.Next.js / Vite (depending on build)
+Follow these instructions to set up and run the project locally.
 
-3.Tailwind CSS
+### Prerequisites
 
-4.Shadcn UI Components
+Make sure you have [Node.js](https://nodejs.org/) and npm installed on your machine.
 
-5.Framer Motion Animations
+### Installation
 
-**Backend / Services**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Enigma-Technical-Club-AIMT/Enigma-Website.git
+   ```
+2. Navigate into the project directory:
+   ```bash
+   cd Enigma-Website
+   ```
+3. Install the dependencies. **Note:** Due to some peer dependency conflicts with the UI library, use the `--legacy-peer-deps` flag:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-1.EmailJS (Contact Form Email Delivery)
+### Running the Development Server
 
-2.MongoDB Atlas (Optional – message storage)
-
-3.JWT Authentication (if admin panel enabled)
-
-**Deployment**
-
-1.Vercel Hosting
-
-2.GitHub Version Control
-
-✨ Features
-
-✔ Responsive Modern UI
-✔ Smooth Animations
-✔ Contact Form (Emails received at enigam@ambalika.co.in)
-✔ Fast Deployment on Vercel
-✔ Secure Environment Variables
-✔ Easy to Customize Sections
-✔ Mobile Friendly Design
+Start the local development server:
+```bash
+npm run dev
+```
+Then, open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
