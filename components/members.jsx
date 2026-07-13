@@ -67,7 +67,7 @@ function MemberDetailModal({ member, isOpen, onClose }) {
         </div>
 
         <div className="p-8">
-          <div className="relative h-80 w-full rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-primary/20 to-secondary/20">
+          <div className="relative aspect-square w-full rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-primary/20 to-secondary/20">
             <Image
               src={member.image || '/placeholder.svg'}
               alt={member.name}
@@ -161,7 +161,7 @@ export function Members() {
                 onMouseLeave={() => setHoveredId(null)}
                 onClick={() => setSelectedMember(member)}
               >
-                <div className="relative h-64 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
                   <Image
                     src={member.image || '/placeholder.svg'}
                     alt={member.name}

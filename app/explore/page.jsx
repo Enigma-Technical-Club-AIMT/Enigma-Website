@@ -363,7 +363,7 @@ export default function ExplorePage() {
                 >
                   <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group">
                     {/* Image */}
-                    <div className="relative h-72 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
+                    <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
                       <Image
                         src={person.image || '/placeholder.svg'}
                         alt={person.name}

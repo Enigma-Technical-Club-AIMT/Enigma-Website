@@ -125,7 +125,7 @@ function MemberModal({ member, isOpen, onClose }) {
         </div>
 
         <div className="p-6">
-          <div className="relative h-72 w-full rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-primary/20 to-secondary/20">
+          <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden mb-6 bg-gradient-to-br from-primary/20 to-secondary/20">
             <Image
               src={member.image || '/placeholder.svg'}
               alt={member.name}
@@ -246,7 +246,7 @@ export default function NewMembersPage() {
                   className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 group cursor-pointer h-full hover:shadow-lg hover:shadow-primary/20"
                 >
                   {/* Image */}
-                  <div className="relative h-80 w-full object-cover object-[center_35%] overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
                     <Image
                       src={member.image || '/placeholder.svg'}
                       alt={member.name}

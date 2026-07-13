@@ -306,7 +306,7 @@ export function SkillsCourses() {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-96 h-48 relative">
+                <div className="w-full aspect-video lg:w-96 lg:h-48 relative overflow-hidden rounded-xl">
                   <Image
                     src="/aimt.jpeg"
                     alt="AIMT"
