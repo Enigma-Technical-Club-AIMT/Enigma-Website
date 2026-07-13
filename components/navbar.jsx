@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -101,18 +102,23 @@ export function Navbar() {
             >
               Contact
             </Link>
+
+            <ThemeToggle />
           </div>
 
-          {/* Mobile hamburger button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground hover:text-primary transition-colors p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
-            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={isOpen}
-          >
-            <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile hamburger button + theme toggle */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-foreground hover:text-primary transition-colors p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
+            >
+              <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation — smooth slide-down/fade transition */}
