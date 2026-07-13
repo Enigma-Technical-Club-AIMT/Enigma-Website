@@ -1,4 +1,8 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react'
+import { EventsSectionSkeleton } from '@/components/skeletons'
 
 const events = [
   {
@@ -76,6 +80,15 @@ const events = [
 ]
 
 export function Events() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 700)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (isLoading) return <EventsSectionSkeleton />
+
   return (
     <section
       id="events"

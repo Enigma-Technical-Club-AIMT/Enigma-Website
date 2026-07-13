@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Github, Linkedin, Mail, X } from 'lucide-react'
+import { MembersSectionSkeleton } from '@/components/skeletons'
 
 const membersList = [
   {
@@ -135,6 +136,15 @@ function MemberDetailModal({ member, isOpen, onClose }) {
 export function Members() {
   const [hoveredId, setHoveredId] = useState(null)
   const [selectedMember, setSelectedMember] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate a brief loading state to show skeleton before hydration
+    const timer = setTimeout(() => setIsLoading(false), 600)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (isLoading) return <MembersSectionSkeleton />
 
   return (
     <section id="members" className="py-20 px-4 sm:px-6 lg:px-8">

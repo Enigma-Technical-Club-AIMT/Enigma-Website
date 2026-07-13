@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { BookOpen, Code, Database, Zap } from 'lucide-react'
+import { SkillsSectionSkeleton } from '@/components/skeletons'
 
 // const skillsData = [
 //   {
@@ -170,6 +171,14 @@ const aimtCourses = [
 
 export function SkillsCourses() {
   const [expandedSkill, setExpandedSkill] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (isLoading) return <SkillsSectionSkeleton />
 
   return (
     <section
