@@ -5,80 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, X, Briefcase, GraduationCap } from 'lucide-react'
 
-const previousMembers = [
-  {
-    id: 1,
-    name: 'Rahul Verma',
-    branch: 'Computer Science',
-    post: 'Software Engineer at Google',
-    batch: '2019-2023',
-    image:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-  },
-  {
-    id: 2,
-    name: 'Anjali Singh',
-    branch: 'Information Technology',
-    post: 'Product Manager at Microsoft',
-    batch: '2018-2022',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-  },
-  {
-    id: 3,
-    name: 'Vikram Patel',
-    branch: 'Computer Science',
-    post: 'AI Researcher at OpenAI',
-    batch: '2019-2023',
-    image:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-  },
-  {
-    id: 4,
-    name: 'Neha Gupta',
-    branch: 'Information Technology',
-    post: 'Startup Founder - FinTech',
-    batch: '2017-2021',
-    image:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-  },
-  {
-    id: 5,
-    name: 'Aditya Kumar',
-    branch: 'Computer Science',
-    post: 'Backend Developer at Amazon',
-    batch: '2018-2022',
-    image:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
-  },
-  {
-    id: 6,
-    name: 'Sonia Mehra',
-    branch: 'Information Technology',
-    post: 'Data Scientist at Netflix',
-    batch: '2019-2023',
-    image:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop',
-  },
-  {
-    id: 7,
-    name: 'Rohan Tiwari',
-    branch: 'Computer Science',
-    post: 'DevOps Lead at Flipkart',
-    batch: '2017-2021',
-    image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-  },
-  {
-    id: 8,
-    name: 'Kavita Reddy',
-    branch: 'Information Technology',
-    post: 'UX Designer at Adobe',
-    batch: '2018-2022',
-    image:
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-  },
-]
+const previousMembers = []
 
 function AlumniModal({ member, isOpen, onClose }) {
   if (!isOpen || !member) return null
@@ -214,52 +141,62 @@ export default function AlumniPage() {
       {/* Alumni Grid */}
       <section className="pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {previousMembers.map((member, index) => (
-              <div
-                key={member.id}
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.08}s` }}
-              >
+          {previousMembers.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {previousMembers.map((member, index) => (
                 <div
-                  onClick={() => setSelectedMember(member)}
-                  className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-secondary/50 transition-all duration-300 group cursor-pointer h-full hover:shadow-lg hover:shadow-secondary/20"
+                  key={member.id}
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.08}s` }}
                 >
-                  {/* Image */}
-                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20">
-                    <Image
-                      src={member.image || '/placeholder.svg'}
-                      alt={member.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    {/* Badge */}
-                    <div className="absolute bottom-3 left-3">
-                      <span className="px-2.5 py-1 bg-accent/80 text-accent-foreground text-xs font-bold rounded-md backdrop-blur-sm">
-                        {member.batch}
-                      </span>
+                  <div
+                    onClick={() => setSelectedMember(member)}
+                    className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-secondary/50 transition-all duration-300 group cursor-pointer h-full hover:shadow-lg hover:shadow-secondary/20"
+                  >
+                    {/* Image */}
+                    <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20">
+                      <Image
+                        src={member.image || '/placeholder.svg'}
+                        alt={member.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      {/* Badge */}
+                      <div className="absolute bottom-3 left-3">
+                        <span className="px-2.5 py-1 bg-accent/80 text-accent-foreground text-xs font-bold rounded-md backdrop-blur-sm">
+                          {member.batch}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold text-foreground mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-secondary font-semibold text-sm mb-2 flex items-center gap-1.5">
+                        <Briefcase className="w-3.5 h-3.5" />
+                        {member.post}
+                      </p>
+                      <p className="text-muted-foreground text-xs flex items-center gap-1.5">
+                        <GraduationCap className="w-3.5 h-3.5" />
+                        {member.branch}
+                      </p>
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-foreground mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-secondary font-semibold text-sm mb-2 flex items-center gap-1.5">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      {member.post}
-                    </p>
-                    <p className="text-muted-foreground text-xs flex items-center gap-1.5">
-                      <GraduationCap className="w-3.5 h-3.5" />
-                      {member.branch}
-                    </p>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 px-4 border border-dashed border-border/50 rounded-2xl bg-card/10 backdrop-blur-sm max-w-lg mx-auto">
+              <GraduationCap className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-foreground mb-2">No Alumni Found</h3>
+              <p className="text-muted-foreground text-sm">
+                There are currently no previous members registered in our alumni network database.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
