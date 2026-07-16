@@ -76,9 +76,10 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            <Link href="#home" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Home</Link>
-            <Link href="#about" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">About</Link>
-            <Link href="#events" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Events</Link>
+            <Link href="/#home" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Home</Link>
+            <Link href="/#about" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">About</Link>
+            <Link href="/#events" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Events</Link>
+            <Link href="/resources" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Resources</Link>
 
             {/* Members Dropdown */}
             <div className="relative group">
@@ -97,7 +98,7 @@ export function Navbar() {
             </div>
 
             <Link
-              href="#contact"
+              href="/#contact"
               className="ml-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
             >
               Contact
@@ -128,9 +129,10 @@ export function Navbar() {
           }`}
         >
           <div className="bg-card border-b border-border/50 rounded-b-lg px-2 pt-2 pb-3 space-y-1">
-            <Link href="#home" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Home</Link>
-            <Link href="#about" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">About</Link>
-            <Link href="#events" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Events</Link>
+            <Link href="/#home" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Home</Link>
+            <Link href="/#about" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">About</Link>
+            <Link href="/#events" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Events</Link>
+            <Link href="/resources" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Resources</Link>
 
             {/* Mobile Members Dropdown */}
             <button
@@ -160,7 +162,7 @@ export function Navbar() {
             </div>
 
             <Link
-              href="#contact"
+              href="/#contact"
               onClick={closeMenu}
               className="block px-3 py-2 mt-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
             >
