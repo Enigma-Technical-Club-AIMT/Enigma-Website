@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowLeft, Search, BookOpen, Code, Database, Globe, 
   Terminal, Shield, FileText, Cpu, ExternalLink, Star,
-  Award, Compass, Sparkles
+  Award, Compass, Sparkles, Target, Briefcase
 } from 'lucide-react'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
@@ -30,7 +30,6 @@ const RESOURCES = [
     difficulty: "Medium to Hard",
     link: "https://takeuforward.org/interviews/strivers-sde-sheet-top-coding-interview-problems/",
     isFeatured: true,
-    rating: "4.9",
     type: "Coding Sheet"
   },
   {
@@ -42,7 +41,6 @@ const RESOURCES = [
     difficulty: "Medium",
     link: "https://leetcode.com/discuss/general-discussion/460599/blind-75-leetcode-questions",
     isFeatured: false,
-    rating: "4.8",
     type: "Practice Problems"
   },
   {
@@ -54,7 +52,6 @@ const RESOURCES = [
     difficulty: "Beginner to Advanced",
     link: "https://neetcode.io/roadmap",
     isFeatured: true,
-    rating: "4.9",
     type: "Roadmap & Video"
   },
   // Core CS
@@ -67,7 +64,6 @@ const RESOURCES = [
     difficulty: "Beginner",
     link: "https://www.youtube.com/@GateSmashers",
     isFeatured: false,
-    rating: "4.8",
     type: "YouTube Course"
   },
   {
@@ -79,7 +75,6 @@ const RESOURCES = [
     difficulty: "Easy",
     link: "https://www.geeksforgeeks.org/dbms-cheat-sheet-for-interview-preparation/",
     isFeatured: false,
-    rating: "4.6",
     type: "Notes / Reference"
   },
   {
@@ -91,7 +86,6 @@ const RESOURCES = [
     difficulty: "Advanced",
     link: "https://github.com/donnemartin/system-design-primer",
     isFeatured: true,
-    rating: "4.9",
     type: "GitHub Repo"
   },
   // Dev
@@ -104,7 +98,6 @@ const RESOURCES = [
     difficulty: "All Levels",
     link: "https://roadmap.sh",
     isFeatured: true,
-    rating: "4.9",
     type: "Learning Path"
   },
   {
@@ -116,7 +109,6 @@ const RESOURCES = [
     difficulty: "Intermediate",
     link: "https://fullstackopen.com/en/",
     isFeatured: false,
-    rating: "4.8",
     type: "Interactive Course"
   },
   {
@@ -128,7 +120,6 @@ const RESOURCES = [
     difficulty: "Intermediate",
     link: "https://buildspace.so/",
     isFeatured: false,
-    rating: "4.7",
     type: "Build Community"
   },
   // Resumes
@@ -141,7 +132,6 @@ const RESOURCES = [
     difficulty: "Easy",
     link: "https://www.overleaf.com/latex/templates/jakes-resume/ptebnqykvnrs",
     isFeatured: true,
-    rating: "4.9",
     type: "LaTeX Template"
   },
   {
@@ -153,7 +143,6 @@ const RESOURCES = [
     difficulty: "Easy",
     link: "https://www.levels.fyi/blog/star-method-behavioral-interviews.html",
     isFeatured: false,
-    rating: "4.7",
     type: "Guide / Article"
   },
   {
@@ -165,7 +154,6 @@ const RESOURCES = [
     difficulty: "Medium to Hard",
     link: "https://www.pramp.com/",
     isFeatured: false,
-    rating: "4.8",
     type: "Interactive Platform"
   }
 ]
@@ -276,9 +264,6 @@ export default function ResourcesPage() {
                       <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary rounded-full">
                         {resource.type}
                       </span>
-                      <span className="flex items-center gap-1 text-xs font-semibold text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded-md">
-                        ★ {resource.rating}
-                      </span>
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {resource.title}
@@ -382,6 +367,31 @@ export default function ResourcesPage() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* Company Target Preparation - Coming Soon */}
+        <div className="mt-16 bg-card border border-border/40 rounded-3xl p-8 sm:p-12 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 group-hover:bg-primary/10 transition-colors duration-500" />
+          <div className="max-w-3xl text-center mx-auto">
+            <span className="px-3.5 py-1 bg-secondary text-muted-foreground text-xs font-bold uppercase tracking-wider rounded-full inline-block mb-6">
+              Coming Soon
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black mb-6 flex items-center justify-center gap-3">
+              <Target className="w-8 h-8 text-primary" />
+              Company Target Preparation
+            </h2>
+            <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+              We are working on dedicated preparation kits for top tech companies. You will soon have access to company-specific syllabuses, notes, lectures, interview questions, video guides, and step-by-step application procedures.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {['Syllabus & Notes', 'Video Lectures', 'Question Sets', 'Interview Prep', 'Application Steps'].map((item) => (
+                <div key={item} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/50 border border-border text-sm font-medium text-muted-foreground">
+                  <Briefcase className="w-4 h-4 text-primary/70" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="mt-16 bg-gradient-to-r from-violet-600/10 via-primary/10 to-indigo-600/10 border border-primary/25 rounded-3xl p-8 sm:p-12 relative overflow-hidden">

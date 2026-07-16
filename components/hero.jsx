@@ -154,10 +154,10 @@ export function Hero() {
               whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
             >
               <Link
-                href="/explore"
+                href="/join"
                 className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors hover:shadow-lg hover:shadow-primary/50 w-full sm:w-auto"
               >
-                Explore More
+                Join Enigma
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </motion.div>

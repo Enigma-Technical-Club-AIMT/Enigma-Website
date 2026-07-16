@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
+import { EnigmaBot } from '@/components/enigma-bot'
 
 import './globals.css'
 
@@ -77,7 +78,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body className={`${_geist.variable} ${_geistMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -85,6 +86,7 @@ export default function RootLayout({ children }) {
           storageKey="enigma-theme"
         >
           {children}
+          <EnigmaBot />
         </ThemeProvider>
       </body>
     </html>

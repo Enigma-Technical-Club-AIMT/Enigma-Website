@@ -3,8 +3,8 @@
     "id": 1,
     "name": "Yogesh Prajapati",
     "role": "Club Lead",
-    "specialty": "AI & Machine Learning",
-    "branch": "Computer Science",
+    "specialty": "Web Development & AI",
+    "branch": "Computer Science & Engineering",
     "image": "/yogu.jpeg",
     "social": { "github": "#", "linkedin": "#", "email": "#" }
   },
@@ -12,8 +12,8 @@
     "id": 2,
     "name": "Vishal kumar",
     "role": "Club Lead",
-    "specialty": "Web Development",
-    "branch": "Information Technology",
+    "specialty": "Gen AI & Full Stack Development",
+    "branch": "Computer Science & Engineering",
     "image": "/vishal1.jpeg",
     "social": {
       "github": "https://github.com/Vishal202-rgb",
@@ -25,8 +25,8 @@
     "id": 3,
     "name": "Sparsh Mishra",
     "role": "Club Lead",
-    "specialty": "Cloud Infrastructure",
-    "branch": "Computer Science",
+    "specialty": "Machine Learning and Data Science",
+    "branch": "Computer Science & Engineering",
     "image": "/sparsh.jpeg",
     "social": {
       "github": "https://github.com/SparshM8",
