@@ -80,6 +80,8 @@ export function Navbar() {
             <Link href="/#about" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">About</Link>
             <Link href="/#events" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Events</Link>
             <Link href="/resources" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Resources</Link>
+            <Link href="/blog" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Blog</Link>
+            <Link href="/leaderboard" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Leaderboard</Link>
 
             {/* Members Dropdown */}
             <div className="relative group">
@@ -93,7 +95,7 @@ export function Navbar() {
               <div className="absolute left-0 mt-0 w-48 bg-card border border-border/50 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
                 <Link href="/#members" className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Current Team</Link>
                 <Link href="/alumni" className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Previous Members</Link>
-                <Link href="/new-members" className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">New Members</Link>
+                <Link href="/join" className="block px-4 py-2 text-sm text-primary font-bold hover:bg-secondary hover:text-secondary-foreground transition-colors">Join Us (Terminal)</Link>
               </div>
             </div>
 
@@ -133,6 +135,8 @@ export function Navbar() {
             <Link href="/#about" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">About</Link>
             <Link href="/#events" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Events</Link>
             <Link href="/resources" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Resources</Link>
+            <Link href="/blog" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Blog</Link>
+            <Link href="/leaderboard" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Leaderboard</Link>
 
             {/* Mobile Members Dropdown */}
             <button
@@ -157,7 +161,7 @@ export function Navbar() {
               <div className="pl-4 space-y-1 pb-1">
                 <Link href="/#members" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Current Team</Link>
                 <Link href="/alumni" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Previous Members</Link>
-                <Link href="/new-members" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">New Members</Link>
+                <Link href="/join" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm text-primary font-bold hover:bg-secondary hover:text-secondary-foreground transition-colors">Join Us (Terminal)</Link>
               </div>
             </div>
 

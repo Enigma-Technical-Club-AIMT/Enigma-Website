@@ -46,6 +46,7 @@ export default function AdminPage() {
   const [members, setMembers] = useState([])
   const [events, setEvents] = useState([])
   const [isDataLoading, setIsDataLoading] = useState(false)
+  const [generatingCertId, setGeneratingCertId] = useState(null)
 
   // Edit/Add Modals
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false)
@@ -245,6 +246,30 @@ export default function AdminPage() {
     }
   }
 
+  const handleGenerateCertificates = async (eventId, attendeesCount) => {
+    if (confirm('Are you sure you want to generate and dispatch certificates to all attendees for this event?')) {
+      setGeneratingCertId(eventId)
+      try {
+        const res = await fetch('/api/certificates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventId, attendeesCount })
+        })
+        const data = await res.json()
+        if (data.success) {
+          alert('Success: ' + data.message)
+        } else {
+          alert('Error: ' + data.error)
+        }
+      } catch (err) {
+        console.error('Failed to generate certificates:', err)
+        alert('Failed to connect to the server.')
+      } finally {
+        setGeneratingCertId(null)
+      }
+    }
+  }
+
   if (isCheckingAuth) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center">
@@ -411,6 +436,16 @@ export default function AdminPage() {
             >
               Manage Members
             </button>
+            <button
+              onClick={() => setActiveTab('blogs')}
+              className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${
+                activeTab === 'blogs'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Manage Blogs
+            </button>
           </div>
 
           {activeTab === 'events' ? (
@@ -421,7 +456,7 @@ export default function AdminPage() {
               <Plus className="w-4 h-4" />
               Add Event
             </button>
-          ) : (
+          ) : activeTab === 'members' ? (
             <button
               onClick={() => openMemberModal()}
               className="flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors"
@@ -429,13 +464,50 @@ export default function AdminPage() {
               <Plus className="w-4 h-4" />
               Add Member
             </button>
-          )}
+          ) : activeTab === 'blogs' ? (
+            <button
+              onClick={() => alert('New Blog Post Created!')}
+              className="flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Publish Post
+            </button>
+          ) : null}
         </div>
 
         {isDataLoading ? (
           <div className="py-20 flex flex-col items-center justify-center">
             <Loader2 className="w-8 h-8 text-primary animate-spin mb-3" />
             <p className="text-muted-foreground text-sm">Loading dynamic records...</p>
+          </div>
+        ) : activeTab === 'blogs' ? (
+          /* Blog Editor Admin List */
+          <div className="bg-card border border-border/50 rounded-xl overflow-hidden p-6 shadow-sm">
+            <h2 className="text-xl font-bold text-foreground mb-4">Create New Blog Post</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Post Title</label>
+                <input type="text" placeholder="e.g. Building our own RAG System" className="w-full px-4 py-2.5 bg-background border border-border/50 rounded-lg text-sm focus:outline-none focus:border-primary transition-colors text-foreground" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Category</label>
+                  <input type="text" placeholder="e.g. AI & ML" className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg text-sm focus:outline-none focus:border-primary transition-colors text-foreground" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Author</label>
+                  <input type="text" placeholder="Your Name" className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg text-sm focus:outline-none focus:border-primary transition-colors text-foreground" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Markdown Content</label>
+                <textarea 
+                  rows={12} 
+                  placeholder="# Introduction\nWrite your markdown content here..." 
+                  className="w-full px-4 py-3 bg-background border border-border/50 rounded-lg text-sm font-mono focus:outline-none focus:border-primary transition-colors text-foreground resize-y"
+                ></textarea>
+              </div>
+            </div>
           </div>
         ) : activeTab === 'events' ? (
           /* Events Admin List */
@@ -492,6 +564,19 @@ export default function AdminPage() {
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Delete
+                    </button>
+                  </div>
+                  <div className="pt-2">
+                    <button
+                      onClick={() => handleGenerateCertificates(event.id, event.attendees)}
+                      disabled={generatingCertId === event.id || event.attendees === 0}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg text-xs font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {generatingCertId === event.id ? (
+                        <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Dispatching...</>
+                      ) : (
+                        <><FileText className="w-3.5 h-3.5" /> Dispatch Certificates</>
+                      )}
                     </button>
                   </div>
                 </div>
