@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react'
 import { Mail, MapPin, Send, Loader2, CheckCircle2, XCircle, AlertCircle } from 'lucide-react'
 import emailjs from '@emailjs/browser'
+import { Reveal, SectionHeading } from '@/components/reveal'
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 
@@ -55,16 +56,16 @@ function FieldError({ message }) {
   )
 }
 
-// ── Input class helper ────────────────────────────────────────────────────────
+// ── Input class helper (flat underline style) ────────────────────────────────
 
 function inputClass(touched, error) {
   const base =
-    'w-full px-4 py-3 rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 transition-colors'
+    'w-full px-0 pt-2.5 pb-1.5 bg-transparent text-foreground placeholder:text-muted-foreground/60 focus:outline-none border-b transition-colors'
   if (touched && error)
-    return `${base} border border-destructive focus:border-destructive focus:ring-destructive/30`
+    return `${base} border-b-destructive`
   if (touched && !error)
-    return `${base} border border-green-500/70 focus:border-green-500 focus:ring-green-500/20`
-  return `${base} border border-border/50 focus:border-primary focus:ring-primary/30`
+    return `${base} border-[#2563eb]`
+  return `${base} border-border focus:border-[#2563eb]`
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -138,54 +139,48 @@ export function Contact() {
 
   const messageLength = formData.message.length
   const messageLimitColor =
-    messageLength > 1800 ? 'text-destructive' : messageLength > 1400 ? 'text-accent' : 'text-muted-foreground'
+    messageLength > 1800 ? 'text-destructive' : messageLength > 1400 ? 'text-[#2563eb]' : 'text-muted-foreground'
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {"Have questions? Want to join us? Let's connect!"}
-          </p>
-        </div>
+    <section id="contact" className="relative py-28 md:py-36 px-5 sm:px-8 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeading
+          eyebrow="// Say Hello"
+          title="Let&apos;s"
+          highlight="connect"
+          description="Have questions? Want to join us? Drop us a line."
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20">
           {/* Contact Information */}
-          <div className="animate-slide-in-left">
-            <div className="space-y-8">
+          <Reveal>
+            <div className="space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-foreground mb-8">
-                  Contact Information
-                </h3>
+                <h3 className="text-xl font-medium text-foreground">Contact Information</h3>
               </div>
 
-              <div className="flex gap-4 group">
-                <div className="flex-shrink-0 pt-1">
-                  <Mail className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                </div>
+              <div className="flex gap-4 items-start">
+                <Mail className="w-4 h-4 text-[#2563eb] mt-1.5 shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">Email</h4>
+                  <h4 className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-1 font-mono-accent">
+                    Email
+                  </h4>
                   <a
                     href="mailto:enigmatech@aimt.co.in"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-foreground hover:text-[#2563eb] transition-colors"
                   >
                     enigma@ambalika.co.in
                   </a>
                 </div>
               </div>
 
-              <div className="flex gap-4 group">
-                <div className="flex-shrink-0 pt-1">
-                  <MapPin className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
-                </div>
+              <div className="flex gap-4 items-start">
+                <MapPin className="w-4 h-4 text-[#2563eb] mt-1.5 shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">
+                  <h4 className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-1 font-mono-accent">
                     Location
                   </h4>
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground/80 leading-relaxed">
                     Ambalika Institute of Management &amp; Technology
                     <br />
                     Lucknow, Uttar Pradesh, India
@@ -194,32 +189,37 @@ export function Contact() {
               </div>
 
               {/* Office Hours */}
-              <div className="bg-card/30 border border-border/30 rounded-xl p-6 mt-8">
-                <h4 className="font-semibold text-foreground mb-4">
+              <div className="border-t border-border pt-8">
+                <h4 className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-4 font-mono-accent">
                   Office Hours
                 </h4>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>Monday - Friday: 9:00 AM - 4:00 PM</p>
-                  <p>Saturday: 10:00 AM - 3:00 PM</p>
-                  <p>Sunday: Closed</p>
+                  <div className="flex justify-between">
+                    <span>Monday - Friday</span>
+                    <span className="text-foreground">9:00 AM - 4:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Saturday</span>
+                    <span className="text-foreground">10:00 AM - 3:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday</span>
+                    <span className="text-destructive">Closed</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Contact Form */}
-          <div className="animate-slide-in-right">
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-8 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15"
-            >
+          <Reveal delay={0.12}>
+            <form onSubmit={handleSubmit} noValidate>
               {/* Success banner */}
               {submitted && (
-                <div className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/40 flex items-start gap-3 animate-fade-in-up">
+                <div className="mb-6 p-4 border border-green-500/40 flex items-start gap-3 animate-fade-in-up">
                   <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-green-500">Message sent successfully!</p>
+                    <p className="font-medium text-green-500">Message sent successfully!</p>
                     <p className="text-sm text-muted-foreground mt-0.5">
                       {"We'll get back to you as soon as possible."}
                     </p>
@@ -229,19 +229,19 @@ export function Contact() {
 
               {/* Error banner */}
               {submitError && (
-                <div className="mb-6 p-4 rounded-lg bg-destructive/10 border border-destructive/40 flex items-start gap-3 animate-fade-in-up">
+                <div className="mb-6 p-4 border border-destructive/40 flex items-start gap-3 animate-fade-in-up">
                   <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-destructive">Oops! Something went wrong.</p>
+                    <p className="font-medium text-destructive">Oops! Something went wrong.</p>
                     <p className="text-sm text-muted-foreground mt-0.5">{submitError}</p>
                   </div>
                 </div>
               )}
 
-              <div className="space-y-5">
+              <div className="space-y-8">
                 {/* Full Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
+                  <label htmlFor="name" className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-2 font-mono-accent">
                     Full Name <span className="text-destructive">*</span>
                   </label>
                   <input
@@ -260,7 +260,7 @@ export function Contact() {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
+                  <label htmlFor="email" className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-2 font-mono-accent">
                     Email Address <span className="text-destructive">*</span>
                   </label>
                   <input
@@ -279,7 +279,7 @@ export function Contact() {
 
                 {/* Subject */}
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-foreground mb-2">
+                  <label htmlFor="subject" className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-2 font-mono-accent">
                     Subject <span className="text-destructive">*</span>
                   </label>
                   <input
@@ -298,10 +298,10 @@ export function Contact() {
                 {/* Message */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label htmlFor="message" className="block text-sm font-semibold text-foreground">
+                    <label htmlFor="message" className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground font-mono-accent">
                       Message <span className="text-destructive">*</span>
                     </label>
-                    <span className={`text-xs ${messageLimitColor}`}>
+                    <span className={`text-xs font-mono-accent ${messageLimitColor}`}>
                       {messageLength}/2000
                     </span>
                   </div>
@@ -312,7 +312,7 @@ export function Contact() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     placeholder="Tell us more about your inquiry... (min. 20 characters)"
-                    rows={5}
+                    rows={4}
                     maxLength={2000}
                     className={`${inputClass(touched.message, errors.message)} resize-none`}
                   />
@@ -323,23 +323,23 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-6 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary hover:text-secondary-foreground transition-colors flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-primary/50 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+                  className="group inline-flex items-center px-9 py-3.5 bg-[#2563eb] text-[#16202f] text-[13px] uppercase tracking-[0.12em] font-medium hover:bg-[#7c3aed] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
                       Sending...
                     </>
                   ) : (
                     <>
                       Send Message
-                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <Send className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </button>
               </div>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

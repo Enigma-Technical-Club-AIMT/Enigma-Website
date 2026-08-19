@@ -2,10 +2,11 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowLeft, Calendar, Clock, Share2, Bookmark } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
 // Mock Data Store (In production, fetch from database or CMS using slug)
 const mockBlogs = {
@@ -51,7 +52,7 @@ async function getEmbedding(text) {
 
 ## Conclusion
 Building this RAG system taught our members vital skills in AI infrastructure and scalable backend engineering. Stay tuned for part 2 where we dive into the deployment process!
-    `
+    `,
   },
   'mastering-dynamic-programming': {
     title: 'Mastering Dynamic Programming: A Visual Guide',
@@ -99,8 +100,8 @@ function fibonacci(n) {
 3. Write down a recurrence relation.
 4. Decide on execution order (Top-down or Bottom-up).
 5. Optimize space complexity if possible.
-    `
-  }
+    `,
+  },
 }
 
 export default function BlogPost() {
@@ -112,89 +113,84 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <h1 className="text-4xl font-bold mb-4">404 - Post Not Found</h1>
-        <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
-        <button onClick={() => router.push('/blog')} className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-          Back to Blog
-        </button>
+      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+        <Navbar />
+        <div className="border border-border p-10 text-center max-w-md mt-16">
+          <p className="font-mono-accent text-[#2563eb] text-sm mb-3">404 // Post Not Found</p>
+          <h1 className="text-3xl font-medium mb-3 font-display">Lost in the Signal</h1>
+          <p className="text-muted-foreground mb-6 text-sm">
+            The blog post you&apos;re looking for doesn&apos;t exist.
+          </p>
+          <button
+            onClick={() => router.push('/blog')}
+            className="px-6 py-2.5 border border-[#2563eb] text-[#2563eb] text-[13px] uppercase tracking-[0.12em] hover:bg-[#2563eb] hover:text-[#16202f] transition-colors"
+          >
+            Back to Blog
+          </button>
+        </div>
+        <Footer />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Navigation & Actions */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-semibold">
-              <ArrowLeft className="w-4 h-4" /> Back to Home
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="pt-28 pb-20 flex-1">
+        <article className="max-w-3xl mx-auto px-5 sm:px-8">
+          {/* Navigation */}
+          <div className="flex items-center gap-4 mb-10 text-sm">
+            <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-[#2563eb] transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Home
             </Link>
-            <Link href="/blog" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-semibold border-l border-border pl-4">
+            <span className="text-border">|</span>
+            <Link href="/blog" className="flex items-center gap-2 text-muted-foreground hover:text-[#2563eb] transition-colors">
               Back to all posts
             </Link>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-secondary">
-              <Bookmark className="w-4 h-4" />
-            </button>
-            <button className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-secondary">
-              <Share2 className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
 
-        {/* Header */}
-        <header className="mb-10 text-center">
-          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded-full mb-4">
-            {post.category}
-          </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
-            {post.title}
-          </h1>
-          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground font-medium">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full overflow-hidden bg-muted">
-                <Image src={post.authorImage} alt={post.author} width={24} height={24} />
+          {/* Header */}
+          <header className="mb-12">
+            <span className="font-mono-accent text-[11px] uppercase tracking-[0.14em] text-[#2563eb] mb-5 block">
+              {post.category}
+            </span>
+            <h1 className="text-3xl md:text-5xl font-medium tracking-tight mb-6 leading-[1.15] font-display">
+              {post.title}
+            </h1>
+            <div className="flex items-center flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <img src={post.authorImage} alt={post.author} className="w-6 h-6 rounded-full bg-muted grayscale" width={24} height={24} />
+                <span className="text-foreground">{post.author}</span>
               </div>
-              <span className="text-foreground">{post.author}</span>
+              <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {post.date}</div>
+              <div className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {post.readTime}</div>
             </div>
-            <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {post.date}</div>
-            <div className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {post.readTime}</div>
+          </header>
+
+          {/* Markdown Content */}
+          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-medium prose-headings:font-display prose-a:text-[#2563eb] hover:prose-a:text-[#2563eb]/80 prose-pre:bg-[#16202f] prose-pre:border prose-pre:border-border">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </div>
-        </header>
 
-        {/* Hero Image */}
-        <div className="relative w-full h-[300px] md:h-[450px] rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/50">
-          <Image src={post.image} alt="Blog Cover" fill className="object-cover" />
-        </div>
-
-        {/* Markdown Content rendered via ReactMarkdown */}
-        <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-xl prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border/50">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
-          </ReactMarkdown>
-        </div>
-
-        {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full overflow-hidden bg-muted border border-border">
-              <Image src={post.authorImage} alt={post.author} width={48} height={48} />
+          {/* Footer */}
+          <footer className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <img src={post.authorImage} alt={post.author} className="w-12 h-12 rounded-full bg-muted grayscale" width={48} height={48} />
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Written By</p>
+                <p className="font-medium text-foreground text-lg">{post.author}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Written By</p>
-              <p className="font-semibold text-foreground text-lg">{post.author}</p>
-            </div>
-          </div>
-          <button className="px-6 py-2.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-all shadow-md">
-            Follow Author
-          </button>
-        </footer>
-
-      </article>
+            <Link
+              href="/blog"
+              className="px-6 py-2.5 border border-border text-sm text-muted-foreground hover:border-[#2563eb] hover:text-[#2563eb] transition-colors"
+            >
+              More Articles
+            </Link>
+          </footer>
+        </article>
+      </div>
+      <Footer />
     </div>
   )
 }

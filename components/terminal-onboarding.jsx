@@ -105,10 +105,10 @@ export function TerminalOnboarding() {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl border border-border/50 bg-[#0c0c0c] font-mono text-sm sm:text-base">
+    <div className="w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl border border-border/50 bg-[#0f172a] font-mono text-sm sm:text-base">
       
       {/* Terminal Header */}
-      <div className="flex items-center px-4 py-2 bg-[#1a1a1a] border-b border-[#333]">
+      <div className="flex items-center px-4 py-2 bg-[#1e293b] border-b border-[#475569]">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>

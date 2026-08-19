@@ -1,11 +1,14 @@
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Instrument_Serif, Archivo, IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { EnigmaBot } from '@/components/enigma-bot'
+import { ScrollProgress } from '@/components/scroll-progress'
+import { BackToTop } from '@/components/back-to-top'
 
 import './globals.css'
 
-const _geist = Geist({ subsets: ['latin'] })
-const _geistMono = Geist_Mono({ subsets: ['latin'] })
+const instrumentSerif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '--font-serif' })
+const archivo = Archivo({ subsets: ['latin'], variable: '--font-sans' })
+const ibmPlexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono' })
 
 export const metadata = {
   metadataBase: new URL('https://enigma.aimt.edu.in'),
@@ -78,10 +81,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${_geist.variable} ${_geistMono.variable} font-sans antialiased`}>
+      <body className={`${instrumentSerif.variable} ${archivo.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
+        <ScrollProgress />
+        <BackToTop />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           storageKey="enigma-theme"
         >

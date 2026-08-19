@@ -4,7 +4,21 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown } from 'lucide-react'
-import { ThemeToggle } from '@/components/theme-toggle'
+
+const links = [
+  { href: '/#home', label: 'Home' },
+  { href: '/#about', label: 'About' },
+  { href: '/#events', label: 'Events' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/leaderboard', label: 'Leaderboard' },
+]
+
+const memberLinks = [
+  { href: '/#members', label: 'Current Team' },
+  { href: '/alumni', label: 'Previous Members' },
+  { href: '/join', label: 'Join Us (Terminal)', primary: true },
+]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,11 +27,8 @@ export function Navbar() {
   const navRef = useRef(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 0)
 
-    // Close menu when clicking outside the nav
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setIsOpen(false)
@@ -25,7 +36,6 @@ export function Navbar() {
       }
     }
 
-    // Close menu on Escape key
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsOpen(false)
@@ -53,15 +63,15 @@ export function Navbar() {
       ref={navRef}
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-background/95 backdrop-blur-sm border-b border-border/50'
+          ? 'bg-background/95 backdrop-blur-md border-b border-border'
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group" onClick={closeMenu}>
-            <div className="relative w-9 h-9 rounded-lg overflow-hidden">
+          <Link href="/" className="flex items-center gap-3 group" onClick={closeMenu}>
+            <div className="relative w-9 h-9 overflow-hidden">
               <Image
                 src="/enigma.jpg"
                 alt="Enigma Technical Club Logo"
@@ -69,79 +79,87 @@ export function Navbar() {
                 className="object-cover"
               />
             </div>
-            <span className="font-bold text-lg text-foreground hidden sm:inline group-hover:text-primary transition-colors">
+            <span className="font-serif-accent text-xl text-foreground hidden sm:inline">
               Enigma
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            <Link href="/#home" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Home</Link>
-            <Link href="/#about" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">About</Link>
-            <Link href="/#events" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Events</Link>
-            <Link href="/resources" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Resources</Link>
-            <Link href="/blog" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Blog</Link>
-            <Link href="/leaderboard" className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Leaderboard</Link>
+          <div className="hidden md:flex items-center space-x-7">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="text-[13px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </Link>
+            ))}
 
             {/* Members Dropdown */}
             <div className="relative group">
-              <button
-                className="px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors flex items-center space-x-1"
-                aria-haspopup="true"
-              >
+              <button className="text-[13px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground transition-colors flex items-center space-x-1">
                 <span>Members</span>
-                <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180 duration-200" />
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 duration-200" />
               </button>
-              <div className="absolute left-0 mt-0 w-48 bg-card border border-border/50 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
-                <Link href="/#members" className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Current Team</Link>
-                <Link href="/alumni" className="block px-4 py-2 text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Previous Members</Link>
-                <Link href="/join" className="block px-4 py-2 text-sm text-primary font-bold hover:bg-secondary hover:text-secondary-foreground transition-colors">Join Us (Terminal)</Link>
+              <div className="absolute left-0 mt-2 w-56 bg-card border border-border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-1.5 shadow-lg">
+                {memberLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className={`block px-4 py-2 text-sm ${
+                      l.primary
+                        ? 'text-[#2563eb]'
+                        : 'text-muted-foreground hover:text-foreground'
+                    } hover:text-foreground transition-colors`}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
               </div>
             </div>
 
             <Link
-              href="/#contact"
-              className="ml-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
+              href="/join"
+              className="btn-brand inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.14em] px-5 py-2.5 rounded-full font-semibold"
             >
-              Contact
+              Join Enigma
             </Link>
-
-            <ThemeToggle />
           </div>
 
-          {/* Mobile hamburger button + theme toggle */}
-          <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
+          {/* Mobile hamburger + theme toggle */}
+          <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground hover:text-primary transition-colors p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="text-foreground transition-colors p-1 focus:outline-none"
               aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isOpen}
             >
-              <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation — smooth slide-down/fade transition */}
+        {/* Mobile Navigation */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
           }`}
         >
-          <div className="bg-card border-b border-border/50 rounded-b-lg px-2 pt-2 pb-3 space-y-1">
-            <Link href="/#home" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Home</Link>
-            <Link href="/#about" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">About</Link>
-            <Link href="/#events" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Events</Link>
-            <Link href="/resources" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Resources</Link>
-            <Link href="/blog" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Blog</Link>
-            <Link href="/leaderboard" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors">Leaderboard</Link>
-
-            {/* Mobile Members Dropdown */}
+          <div className="bg-card border border-border mt-2 px-3 pt-2 pb-4 space-y-1">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={closeMenu}
+                className="block px-3 py-2.5 text-[13px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </Link>
+            ))}
             <button
               onClick={() => setOpenDropdown(openDropdown === 'members' ? null : 'members')}
-              className="w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors flex items-center justify-between"
+              className="w-full text-left px-3 py-2.5 text-[13px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground transition-colors flex items-center justify-between"
               aria-expanded={openDropdown === 'members'}
             >
               <span>Members</span>
@@ -151,26 +169,32 @@ export function Navbar() {
                 }`}
               />
             </button>
-
-            {/* Mobile Members sub-menu — smooth slide */}
             <div
               className={`overflow-hidden transition-all duration-200 ease-in-out ${
                 openDropdown === 'members' ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
               <div className="pl-4 space-y-1 pb-1">
-                <Link href="/#members" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Current Team</Link>
-                <Link href="/alumni" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm hover:bg-secondary hover:text-secondary-foreground transition-colors">Previous Members</Link>
-                <Link href="/join" onClick={closeMenu} className="block px-3 py-2 rounded-md text-sm text-primary font-bold hover:bg-secondary hover:text-secondary-foreground transition-colors">Join Us (Terminal)</Link>
+                {memberLinks.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={closeMenu}
+                    className={`block px-3 py-2 text-sm ${
+                      l.primary ? 'text-[#2563eb]' : 'text-muted-foreground'
+                    } hover:text-foreground transition-colors`}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
               </div>
             </div>
-
             <Link
-              href="/#contact"
+              href="/join"
               onClick={closeMenu}
-              className="block px-3 py-2 mt-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors"
+              className="block px-3 py-3 mt-2 btn-brand rounded-xl text-[13px] uppercase tracking-[0.14em] font-semibold text-center"
             >
-              Contact
+              Join Enigma
             </Link>
           </div>
         </div>
