@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Github, Linkedin, Instagram, Mail, MapPin } from 'lucide-react'
+import { Github, Linkedin, Instagram, Mail, MapPin, ArrowUpRight } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -23,31 +23,48 @@ export function Footer() {
       icon: Github,
       href: 'https://github.com/Enigma-Technical-Club-AIMT',
       label: 'GitHub',
-      hoverColor: 'hover:text-primary hover:border-primary/50 hover:bg-primary/10',
     },
     {
       icon: Linkedin,
       href: 'https://www.linkedin.com/school/ambalika-institute-of-management-&-technology/',
       label: 'LinkedIn',
-      hoverColor: 'hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10',
     },
     {
       icon: Instagram,
       href: 'https://www.instagram.com/ambalika_group/',
       label: 'Instagram',
-      hoverColor: 'hover:text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10',
     },
   ]
 
   return (
-    <footer className="bg-gradient-to-t from-card/80 to-background border-t border-border/30 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="footer-band relative border-t border-border">
+      {/* CTA band */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-24 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8">
+        <div className="max-w-xl">
+          <span className="eyebrow mb-5">// Join Us</span>
+          <h3 className="text-4xl md:text-5xl font-medium leading-[1.08] font-display">
+            Ready to decode the <span className="font-serif-accent text-[#2563eb]">Enigma</span>?
+          </h3>
+          <p className="text-muted-foreground mt-4">
+            Join a community where your curiosity meets opportunity.
+          </p>
+        </div>
+        <Link
+          href="/join"
+          className="btn-brand group inline-flex items-center px-7 py-3.5 rounded-full text-[13px] uppercase tracking-[0.12em] font-semibold shrink-0"
+        >
+          Join Today
+          <ArrowUpRight className="ml-1 w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        </Link>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 border-t border-border">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-14">
           {/* Brand Section */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-border/50">
+            <div className="flex items-center gap-2.5">
+              <div className="relative w-9 h-9 overflow-hidden">
                 <Image
                   src="/enigma.jpg"
                   alt="Enigma Technical Club Logo"
@@ -55,26 +72,23 @@ export function Footer() {
                   className="object-cover"
                 />
               </div>
-              <span className="font-bold text-lg text-foreground hover:text-primary transition-colors cursor-default">
-                Enigma
-              </span>
+              <span className="font-serif-accent text-xl text-foreground">Enigma</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Empowering students to innovate, collaborate, and excel in the
-              world of technology at Ambalika Institute of Management &amp;
-              Technology.
+              Empowering students to innovate, collaborate, and excel in
+              technology at Ambalika Institute of Management &amp; Technology.
             </p>
-            <div className="flex gap-2.5 pt-2">
+            <div className="flex gap-3 pt-2">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center w-9 h-9 rounded-lg border border-border/50 text-muted-foreground transition-all duration-200 ${social.hoverColor}`}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-4 h-4" />
+                  <social.icon className="w-4 h-4" strokeWidth={1.75} />
                 </a>
               ))}
             </div>
@@ -82,15 +96,15 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="lg:pl-8">
-            <h4 className="font-semibold text-sm uppercase tracking-wider text-foreground mb-4">
+            <h4 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-5 font-mono-accent">
               Quick Links
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -101,15 +115,15 @@ export function Footer() {
 
           {/* Members Links */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider text-foreground mb-4">
+            <h4 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-5 font-mono-accent">
               Team
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {memberLinks.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -120,21 +134,21 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider text-foreground mb-4">
+            <h4 className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-5 font-mono-accent">
               Contact Us
             </h4>
-            <ul className="space-y-3.5 text-sm">
+            <ul className="space-y-3 text-sm">
               <li>
                 <a
                   href="mailto:enigma@ambalika.co.in"
-                  className="flex items-center gap-2.5 text-muted-foreground hover:text-primary transition-colors font-medium"
+                  className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+                  <Mail className="w-4 h-4 text-[#2563eb] shrink-0" />
                   enigma@ambalika.co.in
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-muted-foreground font-medium">
-                <MapPin className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2.5 text-muted-foreground">
+                <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 mt-0.5" />
                 <span>
                   AIMT Campus,
                   <br />
@@ -147,28 +161,23 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border/30 my-8"></div>
-
         {/* Bottom Footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-          <p className="text-muted-foreground text-sm">
+        <div className="border-t border-border py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
+          <p className="text-muted-foreground text-xs font-mono-accent tracking-[0.1em]">
             &copy; {currentYear} Enigma Technical Club. All rights reserved.
           </p>
-          <p className="text-muted-foreground text-sm font-medium">
-            Made with 💜 at AIMT
-          </p>
+          <p className="text-muted-foreground text-xs">Made with care at AIMT</p>
         </div>
 
         {/* Institute Attribution */}
-        <div className="mt-8 pt-6 border-t border-border/20 text-center">
+        <div className="pb-10 pt-4 text-center">
           <p className="text-muted-foreground text-xs leading-relaxed">
             Enigma Technical Club is an official student body of{' '}
             <a
               href="https://aimt.edu.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-foreground hover:text-primary transition-colors"
+              className="text-foreground hover:text-[#2563eb] transition-colors"
             >
               Ambalika Institute of Management &amp; Technology
             </a>

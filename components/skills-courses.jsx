@@ -1,44 +1,19 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { BookOpen, Code, Database, Zap } from 'lucide-react'
+import Link from 'next/link'
+import {
+  Code,
+  Database,
+  Zap,
+  ArrowRight,
+  ShieldCheck,
+  GraduationCap,
+  Wrench,
+} from 'lucide-react'
 import { SkillsSectionSkeleton } from '@/components/skeletons'
+import { Reveal, SectionHeading } from '@/components/reveal'
 
-// const skillsData = [
-//   {
-//     id: 1,
-//     title: 'Web Development',
-//     icon: Code,
-//     description: 'Master modern web technologies',
-//     topics: ['React', 'Next.js', 'Tailwind CSS', 'JavaScript'],
-//     difficulty: 'Beginner to Advanced',
-//   },
-//   {
-//     id: 2,
-//     title: 'Backend Development',
-//     icon: Database,
-//     description: 'Build scalable server solutions',
-//     topics: ['Node.js', 'Express', 'Databases', 'APIs'],
-//     difficulty: 'Intermediate to Advanced',
-//   },
-//   {
-//     id: 3,
-//     title: 'Machine Learning',
-//     icon: Zap,
-//     description: 'Explore AI and data science',
-//     topics: ['Python', 'TensorFlow', 'Data Analysis', 'ML Models'],
-//     difficulty: 'Advanced',
-//   },
-//   {
-//     id: 4,
-//     title: 'Cloud & DevOps',
-//     icon: Zap,
-//     description: 'Deploy and manage applications',
-//     topics: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
-//     difficulty: 'Intermediate to Advanced',
-//   },
-// ]
 const skillsData = [
   {
     id: 1,
@@ -64,9 +39,6 @@ const skillsData = [
     topics: ['Python', 'TensorFlow', 'Pandas', 'ML Models'],
     difficulty: 'Advanced',
   },
-
-  // ✅ NEW TECHNOLOGIES
-
   {
     id: 4,
     title: 'Cloud Computing',
@@ -78,7 +50,7 @@ const skillsData = [
   {
     id: 5,
     title: 'Cybersecurity',
-    icon: Zap,
+    icon: ShieldCheck,
     description: 'Protect systems and networks',
     topics: ['Ethical Hacking', 'Network Security', 'Kali Linux', 'Cryptography'],
     difficulty: 'Intermediate to Advanced',
@@ -132,15 +104,14 @@ const skillsData = [
     difficulty: 'Beginner to Intermediate',
   },
   {
-  id: 12,
-  title: 'DevOps & Automation',
-  icon: Database,
-  description: 'Automate build, testing, and deployment pipelines',
-  topics: ['Linux', 'Shell Scripting', 'Jenkins', 'GitHub Actions', 'CI/CD Pipelines'],
-  difficulty: 'Intermediate to Advanced',
-},
+    id: 12,
+    title: 'DevOps & Automation',
+    icon: Database,
+    description: 'Automate build, testing, and deployment pipelines',
+    topics: ['Linux', 'Shell Scripting', 'Jenkins', 'GitHub Actions', 'CI/CD Pipelines'],
+    difficulty: 'Intermediate to Advanced',
+  },
 ]
-
 
 const aimtCourses = [
   {
@@ -174,215 +145,162 @@ export function SkillsCourses() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800)
+    const timer = setTimeout(() => setIsLoading(false), 250)
     return () => clearTimeout(timer)
   }, [])
 
   if (isLoading) return <SkillsSectionSkeleton />
 
   return (
-    <section
-      id="skills-courses"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-card/30 to-background"
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Header with Enigma Logo */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="relative w-24 h-24">
-              <Image
-                src="/aimt.jpeg"
-                alt="Enigma Logo"
-                fill
-                className="object-contain animate-glow"
-              />
-            </div>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            Skills & Learning Paths
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore the latest technologies and skills taught through Enigma
-            Tech Club and AIMT programs
-          </p>
-        </div>
+    <section id="skills-courses" className="relative py-28 md:py-36 px-5 sm:px-8 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeading
+          eyebrow="// Grow With Us"
+          title="Skills &"
+          highlight="learning paths"
+          description="Explore the technologies taught through Enigma Technical Club and AIMT programs."
+        />
 
-        {/* Latest Skills Section */}
-        <div className="mb-20">
-          <h3 className="text-3xl font-bold text-foreground mb-12 text-center">
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Latest Tech Skills
-            </span>
+        {/* Latest Tech Skills — flat bordered grid with hairlines */}
+        <div className="mb-28">
+          <h3 className="text-center text-[13px] uppercase tracking-[0.2em] text-muted-foreground mb-12">
+            Latest Tech Skills
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="border-t border-border">
             {skillsData.map((skill, index) => {
               const IconComponent = skill.icon
+              const isExpanded = expandedSkill === skill.id
               return (
-                <div
-                  key={skill.id}
-                  className="animate-fade-in-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
+                <Reveal key={skill.id} delay={0}>
                   <div
-                    className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 h-full hover:border-primary/50 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group"
-                    onClick={() =>
-                      setExpandedSkill(
-                        expandedSkill === skill.id ? null : skill.id
-                      )
-                    }
+                    className="border-b border-border py-7 px-2 cursor-pointer group grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-start md:items-center gap-4"
+                    onClick={() => setExpandedSkill(isExpanded ? null : skill.id)}
                   >
-                    <div className="mb-4">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-                        <IconComponent className="w-6 h-6 text-primary group-hover:text-primary-foreground" />
-                      </div>
-                    </div>
-
-                    <h4 className="text-lg font-bold text-foreground mb-2">
-                      {skill.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {skill.description}
-                    </p>
-
-                    {/* Difficulty Badge */}
-                    <div className="mb-4">
-                      <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">
-                        {skill.difficulty}
+                    <div className="flex items-center gap-5">
+                      <span className="font-mono-accent text-[11px] text-muted-foreground/50 w-8">
+                        {String(index + 1).padStart(2, '0')}
                       </span>
+                      <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-[#2563eb] transition-colors" strokeWidth={1.5} />
+                      <div>
+                        <h4 className="text-lg font-medium text-foreground group-hover:text-[#2563eb] transition-colors">
+                          {skill.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground mt-0.5">{skill.description}</p>
+                      </div>
                     </div>
 
-                    {/* Expandable Topics */}
-                    {expandedSkill === skill.id && (
-                      <div className="border-t border-border/30 pt-4 mt-4 animate-fade-in-up">
-                        <p className="text-xs font-semibold text-muted-foreground mb-2">
-                          KEY TOPICS
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {skill.topics.map((topic) => (
-                            <span
-                              key={topic}
-                              className="px-2 py-1 bg-primary/10 text-primary text-xs rounded"
-                            >
-                              {topic}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <span className="font-mono-accent text-[11px] uppercase tracking-[0.12em] text-muted-foreground/60 md:justify-self-center">
+                      {skill.difficulty}
+                    </span>
+
+                    <span className="font-mono-accent text-[11px] text-muted-foreground/50 uppercase tracking-[0.12em]">
+                      {isExpanded ? 'Collapse −' : 'Explore +'}
+                    </span>
                   </div>
-                </div>
+
+                  {/* Expandable topics */}
+                  <div
+                    className="overflow-hidden transition-all duration-300"
+                    style={{ maxHeight: isExpanded ? 160 : 0, opacity: isExpanded ? 1 : 0 }}
+                  >
+                    <div className="px-2 pl-[4.25rem] pb-5 flex flex-wrap gap-2">
+                      {skill.topics.map((topic) => (
+                        <span
+                          key={topic}
+                          className="font-mono-accent text-[11px] uppercase tracking-[0.1em] text-foreground/70 border border-border px-3 py-1"
+                        >
+                          {topic}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
 
-        {/* AIMT Programs Advertisement */}
-        <div className="mb-12">
-          <div className="relative overflow-hidden rounded-2xl border border-border/50 p-12 bg-gradient-to-br from-primary/10 via-card/50 to-secondary/10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-0"></div>
-
-            <div className="relative z-10">
-              <div className="flex flex-col lg:flex-row items-center gap-8 mb-12">
+        {/* AIMT Programs — flat hairline band */}
+        <div className="mb-16">
+          <Reveal>
+            <div className="border-y border-border py-14">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 mb-10">
                 <div className="flex-1">
-                  <h3 className="text-3xl font-bold text-foreground mb-4">
-                    World-Class Programs at AIMT
+                  <span className="eyebrow mb-5">// Academic Excellence</span>
+                  <h3 className="text-3xl font-medium text-foreground mb-4 font-display">
+                    World-class programs at AIMT
                   </h3>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    Ambalika Institute of Management & Technology offers
-                    comprehensive programs designed to equip students with
-                    industry-ready skills and cutting-edge knowledge.
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Ambalika Institute of Management & Technology offers programs
+                    designed to equip students with industry-ready skills.
                   </p>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-primary"></div>
-                      <span className="text-foreground font-semibold">
-                        Industry Partnerships
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                      <span className="text-foreground font-semibold">
-                        Expert Faculty
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-accent"></div>
-                      <span className="text-foreground font-semibold">
-                        Hands-on Projects
-                      </span>
-                    </div>
-                  </div>
                 </div>
-
-                <div className="w-full aspect-video lg:w-96 lg:h-48 relative overflow-hidden rounded-xl">
-                  <Image
-                    src="/aimt.jpeg"
-                    alt="AIMT"
-                    fill
-                    className="object-contain animate-pulse-slow"
-                  />
+                <div className="flex flex-wrap gap-x-8 gap-y-4 lg:justify-end">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <GraduationCap className="w-4 h-4 text-[#2563eb]" strokeWidth={1.5} />
+                    <span className="text-sm">Industry Partnerships</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Wrench className="w-4 h-4 text-[#2563eb]" strokeWidth={1.5} />
+                    <span className="text-sm">Expert Faculty</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Zap className="w-4 h-4 text-[#2563eb]" strokeWidth={1.5} />
+                    <span className="text-sm">Hands-on Projects</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Course Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 border-t border-border">
                 {aimtCourses.map((course, index) => (
-                  <div
-                    key={course.id}
-                    className="bg-background/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h4 className="text-lg font-bold text-foreground mb-1">
-                          {course.name}
-                        </h4>
-                        <p className="text-sm text-accent font-semibold">
-                          {course.duration}
-                        </p>
+                  <Reveal key={course.id} delay={index * 0.06} className="h-full">
+                    <div className="py-8 md:px-10 border-b md:border-r border-border last:border-b-0">
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h4 className="text-lg font-medium text-foreground">{course.name}</h4>
+                          <p className="font-mono-accent text-[11px] uppercase tracking-[0.12em] text-[#2563eb] mt-1">
+                            {course.duration}
+                          </p>
+                        </div>
                       </div>
-                      <BookOpen className="w-6 h-6 text-primary" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <p className="text-xs font-semibold text-muted-foreground">
-                        SPECIALIZATIONS
-                      </p>
                       <div className="flex flex-wrap gap-2">
                         {course.specializations.map((spec) => (
                           <span
                             key={spec}
-                            className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                            className="font-mono-accent text-[11px] uppercase tracking-[0.1em] text-foreground/70 border border-border px-3 py-1"
                           >
                             {spec}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center animate-fade-in-up">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Ready to Start Your Tech Journey?
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Join Enigma Tech Club and explore these cutting-edge skills with our
-            community of passionate learners.
-          </p>
-          <a
-            href="#contact"
-            className="inline-block px-8 py-3 bg-primary text-primary-foreground font-bold rounded-lg hover:bg-primary/90 transition-colors hover:shadow-lg hover:shadow-primary/40"
-          >
-            Get Started Today
-          </a>
-        </div>
+        {/* CTA */}
+        <Reveal>
+          <div className="text-center max-w-xl mx-auto">
+            <h3 className="text-3xl font-medium text-foreground mb-4 font-display">
+              Ready to start your tech journey?
+            </h3>
+            <p className="text-muted-foreground mb-8 leading-relaxed">
+              Join Enigma Technical Club and explore these skills with a community
+              of passionate learners.
+            </p>
+            <Link
+              href="/join"
+              className="group inline-flex items-center px-8 py-3.5 bg-[#2563eb] text-[#16202f] text-[13px] uppercase tracking-[0.12em] font-medium hover:bg-[#7c3aed] transition-colors"
+            >
+              Get Started Today
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

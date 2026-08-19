@@ -80,9 +80,9 @@ export function EnigmaBot() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-2xl flex items-center justify-center z-50 overflow-hidden group"
+            className="fixed bottom-6 left-6 w-11 h-11 border border-[#2563eb] bg-[#16202f] text-[#2563eb] flex items-center justify-center z-50 overflow-hidden group hover:bg-[#2563eb] hover:text-[#16202f] transition-colors"
           >
-            <div className="absolute inset-0 bg-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <div className="absolute inset-0 bg-primary/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             <MessageSquare className="w-6 h-6 relative z-10" />
             
             {/* Notification Badge */}
@@ -99,11 +99,11 @@ export function EnigmaBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-card border border-border/50 shadow-2xl rounded-2xl z-50 flex flex-col overflow-hidden"
+            className="fixed bottom-6 left-6 w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] border border-border bg-[#16202f] z-50 flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-accent p-4 flex items-center justify-between shadow-md relative z-10">
-              <div className="flex items-center gap-3 text-primary-foreground">
+            <div className="bg-[#16202f] border-b border-border p-4 flex items-center justify-between relative z-10">
+              <div className="flex items-center gap-3 text-white">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white/20 border border-white/30 flex items-center justify-center">
                    <Sparkles className="w-4 h-4 text-yellow-300" />
                 </div>
@@ -116,14 +116,14 @@ export function EnigmaBot() {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-primary-foreground/80 hover:text-white p-1 hover:bg-white/10 rounded-lg transition-colors"
+                className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/10 scroll-smooth">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#16202f] scroll-smooth">
               {messages.map((msg) => (
                 <div 
                   key={msg.id} 
@@ -170,7 +170,7 @@ export function EnigmaBot() {
             </div>
 
             {/* Input Area */}
-            <div className="p-3 bg-card border-t border-border/50">
+            <div className="p-3 bg-[#16202f] border-t border-border">
               <form onSubmit={handleSendMessage} className="relative flex items-center">
                 <input 
                   type="text" 
